@@ -178,11 +178,10 @@ void handleNotFound() {
 
 void setup ( void ) {
   for (int i = 0; i < RELAYS; i++) {
-    pinMode(relay[i], OUTPUT);
     digitalWrite (relay[i], OFF);
+    pinMode(relay[i], OUTPUT);
   }
-  //pinMode ( led, OUTPUT );
-  //digitalWrite ( led, 0 );
+
   Serial.begin ( 115200 );
   WiFi.begin ( ssid, password );
   Serial.println ( "" );

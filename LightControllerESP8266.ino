@@ -143,18 +143,82 @@ void handleInfoPage() {
     <ch7>%s</ch7>\n\
   </switches>\n\
 </info>",
-           (relay_status[0]) ? "on" : "off", 
-           (relay_status[1]) ? "on" : "off", 
-           (relay_status[2]) ? "on" : "off", 
-           (relay_status[3]) ? "on" : "off", 
-           (relay_status[4]) ? "on" : "off", 
-           (relay_status[5]) ? "on" : "off", 
-           (relay_status[6]) ? "on" : "off", 
+           (relay_status[0]) ? "on" : "off",
+           (relay_status[1]) ? "on" : "off",
+           (relay_status[2]) ? "on" : "off",
+           (relay_status[3]) ? "on" : "off",
+           (relay_status[4]) ? "on" : "off",
+           (relay_status[5]) ? "on" : "off",
+           (relay_status[6]) ? "on" : "off",
            (relay_status[7]) ? "on" : "off"
-           );
+          );
   server.send ( 200, "text/xml", text );
 
   Serial.println ( "/info.xml generated" );
+}
+
+void handleStatusPage() {
+  if (server.args() == 0) {
+    server.send ( 200, "text/html", file_index );
+  } else {
+    if ( server.arg("ch") == "0" ) {
+      if (relay_status[0]) {
+        server.send ( 200, "text/plain", "1" );
+      } else {
+        server.send ( 200, "text/plain", "0" );
+      }
+    }
+    if ( server.arg("ch") == "1" ) {
+      if (relay_status[1]) {
+        server.send ( 200, "text/plain", "1" );
+      } else {
+        server.send ( 200, "text/plain", "0" );
+      }
+    }
+    if ( server.arg("ch") == "2" ) {
+      if (relay_status[2]) {
+        server.send ( 200, "text/plain", "1" );
+      } else {
+        server.send ( 200, "text/plain", "0" );
+      }
+    }
+    if ( server.arg("ch") == "3" ) {
+      if (relay_status[3]) {
+        server.send ( 200, "text/plain", "1" );
+      } else {
+        server.send ( 200, "text/plain", "0" );
+      }
+    }
+    if ( server.arg("ch") == "4" ) {
+      if (relay_status[4]) {
+        server.send ( 200, "text/plain", "1" );
+      } else {
+        server.send ( 200, "text/plain", "0" );
+      }
+    }
+    if ( server.arg("ch") == "5" ) {
+      if (relay_status[5]) {
+        server.send ( 200, "text/plain", "1" );
+      } else {
+        server.send ( 200, "text/plain", "0" );
+      }
+    }
+    if ( server.arg("ch") == "6" ) {
+      if (relay_status[6]) {
+        server.send ( 200, "text/plain", "1" );
+      } else {
+        server.send ( 200, "text/plain", "0" );
+      }
+    }
+    if ( server.arg("ch") == "7" ) {
+      if (relay_status[7]) {
+        server.send ( 200, "text/plain", "1" );
+      } else {
+        server.send ( 200, "text/plain", "0" );
+      }
+    }
+  }
+  Serial.println ( "/status generated" );
 }
 
 void handleNotFound() {
@@ -204,6 +268,7 @@ void setup ( void ) {
 
   server.on ( "/", handleRoot );
   server.on ( "/info.xml", handleInfoPage);
+  server.on ( "/status", handleStatusPage);
   server.onNotFound ( handleNotFound );
   server.begin();
   Serial.println ( "HTTP server started" );
@@ -212,4 +277,3 @@ void setup ( void ) {
 void loop ( void ) {
   server.handleClient();
 }
-
